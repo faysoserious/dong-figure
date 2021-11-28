@@ -2,6 +2,18 @@ import * as THREE from "https://cdn.skypack.dev/three@0.132.2";
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.132.2/examples/jsm/controls/OrbitControls.js"
 
 let scene, camera, renderer, controls, pointlight;
+let linePoint=[-50, 50, -50, -50, 50, 50];
+function calculatePointLine(linePoint) {
+    const points = [];
+    points.push(new THREE.Vector3(linePoint[0], linePoint[1], linePoint[2]));
+    points.push(new THREE.Vector3(linePoint[3], linePoint[4], linePoint[5]));
+    line(points);
+}
+
+
+//-50, 50, -50
+//-50, 50, 50
+
 function init() {
     scene = new THREE.Scene();
 
@@ -63,15 +75,16 @@ function init() {
     atom(10, 50, 0, 0);
     /////////carbon///////////
     //////////upper///////////
-    carbon(8, -25, 25, 25);
-    carbon(8, 25, 25, -25);
+    carbon(6, -25, 25, 25);
+    carbon(6, 25, 25, -25);
     /////////lower//////////
-    carbon(8, 25, -25, 25);
-    carbon(8, -25, -25, -25);
+    carbon(6, 25, -25, 25);
+    carbon(6, -25, -25, -25);
 
 
     frame();
-    line();
+    calculatePointLine(linePoint);
+    //line();
 
     animate();
 
@@ -116,15 +129,13 @@ function frame() {
     scene.add(line);
 }
 
-function line() {
+function line(points) {
     const material = new THREE.LineBasicMaterial({
         color: 0x000000,
         linewidth: 100
     });
 
-    const points = [];
-    points.push(new THREE.Vector3(-50, 50, -50));
-    points.push(new THREE.Vector3(-50, 50, 50));
+    
     
     // Create Tube Geometry
     let geometry = new THREE.TubeGeometry(
@@ -141,15 +152,15 @@ function line() {
     scene.add(line);
 }
 
-function tube() {
+function tube(points) {
     const material = new THREE.LineBasicMaterial({
         color: 0x0000ff,
         linewidth: 100
     });
 
-    const points = [];
+    /* const points = [];
     points.push(new THREE.Vector3(50, 50, 50));
-    points.push(new THREE.Vector3(-50, 50, 50));
+    points.push(new THREE.Vector3(-50, 50, 50)); */
     // Create Tube Geometry
     let geometry = new THREE.TubeGeometry(
         new THREE.CatmullRomCurve3(points),
