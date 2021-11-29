@@ -1,0 +1,34 @@
+html {
+    font-family: sans-serif;
+} 
+
+body {
+    margin: 0 auto;
+    width: 80%;
+}
+a {
+    display: inline-block;
+    color: #000000;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+nav {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+section {
+    margin-top: 200px;
+}
+h1 {
+    font-family: 'Liu Jian Mao Cao', cursive;
+    text-align: center;
+    font-size: 32px;
+}
+h2 {
+    font-family: 'Liu Jian Mao Cao', cursive;
+    text-align: center;
+    font-size: 32px;
+}
