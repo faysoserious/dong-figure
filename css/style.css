@@ -1,9 +1,39 @@
 html, body{
+    font-family: sans-serif;
     margin: 0;
     height: 100%;
     background: #ffffff;
     overflow: hidden;
 
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+}
+nav {
+    width: 80%;
+    margin: 2rem auto;
+    
+}
+
+button {
+    padding: 1rem 2rem;
+    border-radius: 5px;
+}
+
+section {
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+    margin: 0 auto;
+}
+
+ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 #c {
@@ -16,4 +46,8 @@ html, body{
 
 #exportLink {
     margin: 0 auto;
+}
+
+p {
+    font-family: 'Liu Jian Mao Cao', cursive;
 }
