@@ -31,23 +31,23 @@ function init() {
 
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
 
-    camera.position.set(0, 0, 500).add( new THREE.Vector3( -200, 0, 0 ) );
+    camera.position.set(0, 0, 500)/* .add( new THREE.Vector3( -200, 0, 0 ) ) */;
     controls = new OrbitControls(camera, renderer.domElement);
 
     /* pointlight = new THREE.PointLight(0xffffff,1);
     pointlight.position.set(200, 200, 200);
     scene.add(pointlight); */
-    const light1 = new THREE.DirectionalLight(0xffffff, 2);
+    const light1 = new THREE.DirectionalLight(0xffffff, 1);
     light1.position.set(200, 200, 200);
     scene.add(light1);
 
-    /* const light2 = new THREE.DirectionalLight(0xffffff, 2);
+    const light2 = new THREE.DirectionalLight(0xffffff, 1);
     light2.position.set(- 200, - 200, 200);
     scene.add(light2);
 
-    const light3 = new THREE.DirectionalLight(0xffffff, 2);
+    const light3 = new THREE.DirectionalLight(0xffffff, 1);
     light3.position.set(- 200, 200, -200);
-    scene.add(light3); */
+    scene.add(light3);
 
     /* let ballGeo = new THREE.SphereGeometry(50, 64, 64);
     let ballMat = new THREE.MeshPhysicalMaterial();
@@ -63,50 +63,58 @@ function init() {
     ballMesh1.position.x = 200; */
     //atom(10, 0, 0, 0);
     ///////far from the view///////
-    atom(10, 50, 50, -50);//r t
-    atom(10, 50, -50, -50);//r b
-    atom(10, -50, 50, -50);//l t
-    atom(10, -50, -50, -50);//l b
-    ///////far from the view - center///////
-    atom(10, 0, 0, -50);
-    ///////close to eye///////////
-    atom(10, 50, 50, 50);
-    atom(10, 50, -50, 50);
-    atom(10, -50, 50, 50);
-    atom(10, -50, -50, 50);
-    ///////close to eye - center///////////
-    atom(10, 0, 0, 50);
-    ////////////up center/////////////////
-    atom(10, 0, 50, 0);
-    /////////lower center/////////
-    atom(10, 0, -50, 0);
-    ////////left center////////
-    atom(10, -50, 0, 0);
-    ////////right center////////
-    atom(10, 50, 0, 0);
-    /////////carbon///////////
-    //////////upper///////////
-    carbon(8, -25, 25, 25);
-    carbon(8, 25, 25, -25);
-    /////////lower//////////
-    carbon(8, 25, -25, 25);
-    carbon(8, -25, -25, -25);
+    atom(9, 50, 80, -50);//r t
+    atom(9, 50, -50, -50);//r b
+    atom(9, -50, 80, -50);//l t
+    atom(9, -50, -50, -50);//l b
+    atom(9, 50, 200, -50);//r t
+    atom(9, -50, 200, -50);//l t
 
+    //upper center
+    atom(9, 0, 135, -25);
+    //lower center
+    atom(9, 0, 25, 25);
+
+    ///////close to eye///////////
+    atom(9, 50, 80, 50);
+    atom(9, 50, -50, 50);
+    atom(9, -50, 80, 50);
+    atom(9, -50, -50, 50);
+    atom(9, 50, 200, 50);//r t
+    atom(9, -50, 200, 50);//l t
+
+    /////////carbon///////////
+    //////////upper - 1///////////
+    carbon(8, 0, 180, -25);
+    //////////upper - 2///////////
+    carbon(8, -50, 125, -50);
+    carbon(8, 50, 125, -50);
+    carbon(8, -50, 125, 50);
+    carbon(8, 50, 125, 50);
+    /////////upper - 4//////////
+    carbon(8, -50, 15, -50);
+    carbon(8, 50, 15, -50);
+    carbon(8, -50, 15, 50);
+    carbon(8, 50, 15, 50);
+    /////////upper - 3//////////
+    carbon(8, 0, 70, 25);
 
     //frame();
     //far from view frame
-    linePoint = [-50, 50, -50, 50, 50, -50];
+    linePoint = [-50, 200, -50, 50, 200, -50];
     calculatePointLine(linePoint);
-    linePoint = [-50, -50, -50, -50, 50, -50];
+    linePoint = [-50, 200, 50, 50, 200, 50];
     calculatePointLine(linePoint);
-    linePoint = [50, 50, -50, 50, -50, -50];
+    linePoint = [-50, -50, -50, -50, 200, -50];
+    calculatePointLine(linePoint);
+    linePoint = [50, 200, -50, 50, -50, -50];
     calculatePointLine(linePoint);
     linePoint = [50, -50, -50, -50, -50, -50];
     calculatePointLine(linePoint);
     //connect far from view with near view frame
-    linePoint = [-50, 50, -50, -50, 50, 50];
+    linePoint = [-50, 200, -50, -50, 200, 50];
     calculatePointLine(linePoint);
-    linePoint = [50, 50, -50, 50, 50, 50];
+    linePoint = [50, 200, -50, 50, 200, 50];
     calculatePointLine(linePoint);
     linePoint = [-50, -50, -50, -50, -50, 50];
     calculatePointLine(linePoint);
@@ -114,57 +122,80 @@ function init() {
     calculatePointLine(linePoint);
     //near view frame
     linePoint = [-50, 50, 50, 50, 50, 50];
+    //calculatePointLine(linePoint);
+    linePoint = [-50, -50, 50, -50, 200, 50];
     calculatePointLine(linePoint);
-    linePoint = [-50, -50, 50, -50, 50, 50];
-    calculatePointLine(linePoint);
-    linePoint = [50, 50, 50, 50, -50, 50];
+    linePoint = [50, 200, 50, 50, -50, 50];
     calculatePointLine(linePoint);
     linePoint = [50, -50, 50, -50, -50, 50];
     calculatePointLine(linePoint);
-    //connect upper left carbon 
-    linePoint = [-50, 50, 50, -25, 25, 25];
+
+
+
+    linePoint = [0, 180, -25, 50, 200, 50];
     calculatePointTube(linePoint);
-    linePoint = [0, 50, 0, -25, 25, 25];
+    linePoint = [0, 180, -25, -50, 200, -50];
     calculatePointTube(linePoint);
-    linePoint = [-50, 0, 0, -25, 25, 25];
-    calculatePointTube(linePoint);
-    linePoint = [0, 0, 50, -25, 25, 25];
-    calculatePointTube(linePoint);
-    //connect upper right carbon
-    linePoint = [50, 50, -50, 25, 25, -25];
-    calculatePointTube(linePoint);
-    linePoint = [0, 50, 0, 25, 25, -25];
-    calculatePointTube(linePoint);
-    linePoint = [50, 0, 0, 25, 25, -25];
-    calculatePointTube(linePoint);
-    linePoint = [0, 0, -50, 25, 25, -25];
-    calculatePointTube(linePoint);
-    //connect lower left carbon 
-    linePoint = [50, -50, 50, 25, -25, 25];
-    calculatePointTube(linePoint);
-    linePoint = [0, -50, 0, 25, -25, 25];
-    calculatePointTube(linePoint);
-    linePoint = [50, 0, 0, 25, -25, 25];
-    calculatePointTube(linePoint);
-    linePoint = [0, 0, 50, 25, -25, 25];
-    calculatePointTube(linePoint);
-    //connect lower right carbon
-    linePoint = [-50, -50, -50, -25, -25, -25];
-    calculatePointTube(linePoint);
-    linePoint = [0, -50, 0, -25, -25, -25];
-    calculatePointTube(linePoint);
-    linePoint = [-50, 0, 0, -25, -25, -25];
-    calculatePointTube(linePoint);
-    linePoint = [0, 0, -50, -25, -25, -25];
+    linePoint = [0, 180, -25, 50, 200, -50];
     calculatePointTube(linePoint);
 
-    //a axis
-    //linePoint = [70, -70, 70, 70, 0, 70];
-    //calculatePointLine(linePoint);
-    //axis();
-    arrowHelper(0,1,0);
-    arrowHelper(-1,0,0);
-    arrowHelper(0,0,1);
+
+    linePoint = [0, 180, -25, 0, 135, -25];
+    calculatePointTube(linePoint);
+
+    linePoint = [-50, 125, -50, 0, 135, -25];
+    calculatePointTube(linePoint);
+    linePoint = [50, 125, -50, 0, 135, -25];
+    calculatePointTube(linePoint);
+    //linePoint = [-50, 125, 50, 0, 135, -25];
+    //calculatePointTube(linePoint);
+    linePoint = [50, 125, 50, 0, 135, -25];
+    calculatePointTube(linePoint);
+
+
+    linePoint = [-50, 125, -50, -50, 80, -50];
+    calculatePointTube(linePoint);
+    linePoint = [50, 125, -50, 50, 80, -50];
+    calculatePointTube(linePoint);
+    linePoint = [50, 125, 50, 50, 80, 50];
+    calculatePointTube(linePoint);
+    linePoint = [-50, 125, 50, -50, 80, 50];
+    calculatePointTube(linePoint);
+
+    linePoint = [0, 70, 25, -50, 80, -50];
+    calculatePointTube(linePoint);
+    linePoint = [0, 70, 25, 50, 80, -50];
+    //calculatePointTube(linePoint);
+    linePoint = [0, 70, 25, 50, 80, 50];
+    calculatePointTube(linePoint);
+    linePoint = [0, 70, 25, -50, 80, 50];
+    calculatePointTube(linePoint);
+
+    linePoint = [0, 70, 25, 0, 25, 25];
+    calculatePointTube(linePoint);
+
+    linePoint = [-50, 15, 50, 0, 25, 25];
+    calculatePointTube(linePoint);
+    linePoint = [50, 15, 50, 0, 25, 25];
+    calculatePointTube(linePoint);
+    linePoint = [-50, 15, -50, 0, 25, 25];
+    calculatePointTube(linePoint);
+
+    linePoint = [-50, 15, 50, -50, -50, 50];
+    calculatePointTube(linePoint);
+    linePoint = [50, 15, 50, 50, -50, 50];
+    calculatePointTube(linePoint);
+    linePoint = [-50, 15, -50, -50, -50, -50];
+    calculatePointTube(linePoint);
+    linePoint = [50, 15, -50, 50, -50, -50];
+    calculatePointTube(linePoint);
+
+
+
+
+    arrowHelper(0, 1, 0, 250);
+    arrowHelper(-1, 0, 0, 80);
+    arrowHelper(0, 0, 1, 80);
 
 
 
@@ -179,7 +210,7 @@ function animate() {
 
 function atom(d, x, y, z) {
     let ballGeo = new THREE.SphereGeometry(d, 64, 64);
-    let ballMat = new THREE.MeshPhysicalMaterial({ color: 0xc70200});
+    let ballMat = new THREE.MeshPhysicalMaterial({ color: 0xc70200 });
     let ballMesh = new THREE.Mesh(ballGeo, ballMat);
     scene.add(ballMesh);
 
@@ -190,7 +221,7 @@ function atom(d, x, y, z) {
 
 function carbon(d, x, y, z) {
     let ballGeo = new THREE.SphereGeometry(d, 64, 64);
-    let ballMat = new THREE.MeshPhysicalMaterial({ color: 0x1e1e1e});
+    let ballMat = new THREE.MeshPhysicalMaterial({ color: 0x1e1e1e });
     let ballMesh = new THREE.Mesh(ballGeo, ballMat);
     scene.add(ballMesh);
 
@@ -242,7 +273,7 @@ function tube(points) {
     let geometry = new THREE.TubeGeometry(
         new THREE.CatmullRomCurve3(points),
         512,// path segments
-        1.5,// THICKNESS
+        2,// THICKNESS
         100, //Roundness of Tube
         false //closed
     );
@@ -254,19 +285,19 @@ function tube(points) {
 }
 
 
-function arrowHelper(x, y, z) {
+function arrowHelper(x, y, z, l) {
     const dir = new THREE.Vector3(x, y, z);
 
     //normalize the direction vector (convert to vector of length 1)
     dir.normalize();
 
     const origin = new THREE.Vector3(100, -50, -70);
-    const length = 80;
+    const length = l;
     const hex = 0x000000;
 
     const arrowHelper = new THREE.ArrowHelper(dir, origin, length, hex);
     scene.add(arrowHelper);
-    
+
 }
 
 
