@@ -31,7 +31,7 @@ function init() {
 
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
 
-    camera.position.set(0, 0, 500).add( new THREE.Vector3( -200, 0, 0 ) );
+    camera.position.set(0, 0, 500)/* .add( new THREE.Vector3( -200, 0, 0 ) ) */;
     controls = new OrbitControls(camera, renderer.domElement);
 
     /* pointlight = new THREE.PointLight(0xffffff,1);
@@ -162,9 +162,9 @@ function init() {
     //linePoint = [70, -70, 70, 70, 0, 70];
     //calculatePointLine(linePoint);
     //axis();
-    arrowHelper(0,1,0);
-    arrowHelper(-1,0,0);
-    arrowHelper(0,0,1);
+    //arrowHelper(0,1,0);
+    //arrowHelper(-1,0,0);
+    //arrowHelper(0,0,1);
 
 
 

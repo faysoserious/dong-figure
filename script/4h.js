@@ -191,9 +191,9 @@ function init() {
 
 
 
-    arrowHelper(0, 1, 0, 250);
-    arrowHelper(-1, 0, 0, 80);
-    arrowHelper(0, 0, 1, 80);
+    //arrowHelper(0, 1, 0, 250);
+    //arrowHelper(-1, 0, 0, 80);
+    //arrowHelper(0, 0, 1, 80);
 
 
 
