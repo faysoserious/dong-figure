@@ -1,7 +1,7 @@
 import * as THREE from "https://cdn.skypack.dev/three@0.132.2";
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.132.2/examples/jsm/controls/OrbitControls.js"
 
-let scene, camera, renderer, controls, pointlight;
+let scene, sceneExport, camera, renderer, controls, pointlight;
 let linePoint = [];
 function calculatePointLine(linePoint) {
     const points = [];
@@ -23,6 +23,7 @@ function calculatePointTube(linePoint) {
 
 function init() {
     scene = new THREE.Scene();
+    sceneExport = new THREE.Scene();
 
     renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -48,6 +49,22 @@ function init() {
     const light3 = new THREE.DirectionalLight(0xffffff, 1);
     light3.position.set(- 200, 200, -200);
     scene.add(light3);
+
+    // this renderer is only used for the export
+
+    const rendererExport = new THREE.WebGLRenderer({ antialias: true });
+    rendererExport.setSize(window.innerWidth, window.innerHeight);
+
+    const exportLink = document.getElementById('exportLink');
+    exportLink.addEventListener('click', () => {
+
+        rendererExport.render(scene, camera); // only export mesh1
+        const dataURL = rendererExport.domElement.toDataURL('image/png');
+
+        exportLink.href = dataURL;
+        exportLink.download = "3c.png";
+
+    });
 
     /* let ballGeo = new THREE.SphereGeometry(50, 64, 64);
     let ballMat = new THREE.MeshPhysicalMaterial();
@@ -174,12 +191,15 @@ function init() {
 function animate() {
     controls.update();
     renderer.render(scene, camera);
+    renderer.render(scene, camera);
     requestAnimationFrame(animate);
+    //renderer.clear();
+    
 }
 
 function atom(d, x, y, z) {
     let ballGeo = new THREE.SphereGeometry(d, 64, 64);
-    let ballMat = new THREE.MeshPhysicalMaterial({ color: 0xc70200});
+    let ballMat = new THREE.MeshPhysicalMaterial({ color: 0xc70200 });
     let ballMesh = new THREE.Mesh(ballGeo, ballMat);
     scene.add(ballMesh);
 
@@ -190,7 +210,7 @@ function atom(d, x, y, z) {
 
 function carbon(d, x, y, z) {
     let ballGeo = new THREE.SphereGeometry(d, 64, 64);
-    let ballMat = new THREE.MeshPhysicalMaterial({ color: 0x1e1e1e});
+    let ballMat = new THREE.MeshPhysicalMaterial({ color: 0x1e1e1e });
     let ballMesh = new THREE.Mesh(ballGeo, ballMat);
     scene.add(ballMesh);
 
@@ -266,7 +286,7 @@ function arrowHelper(x, y, z) {
 
     const arrowHelper = new THREE.ArrowHelper(dir, origin, length, hex);
     scene.add(arrowHelper);
-    
+
 }
 
 

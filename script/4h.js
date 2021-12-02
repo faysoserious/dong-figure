@@ -47,6 +47,22 @@ function init() {
     light3.position.set(- 200, 200, -200);
     scene.add(light3);
 
+    // this renderer is only used for the export
+
+    const rendererExport = new THREE.WebGLRenderer({ antialias: true });
+    rendererExport.setSize(window.innerWidth, window.innerHeight);
+
+    const exportLink = document.getElementById('exportLink');
+    exportLink.addEventListener('click', () => {
+
+        rendererExport.render(scene, camera); // only export mesh1
+        const dataURL = rendererExport.domElement.toDataURL('image/png');
+
+        exportLink.href = dataURL;
+        exportLink.download = "4h.png";
+
+    });
+
     /* let ballGeo = new THREE.SphereGeometry(50, 64, 64);
     let ballMat = new THREE.MeshPhysicalMaterial();
     let ballMesh = new THREE.Mesh(ballGeo, ballMat);
@@ -202,6 +218,7 @@ function init() {
 }
 function animate() {
     controls.update();
+    renderer.render(scene, camera);
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
 }
