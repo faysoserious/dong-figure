@@ -29,7 +29,7 @@ function init() {
 
     document.body.appendChild(renderer.domElement);
 
-    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
+    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
 
     camera.position.set(0, 0, 500).add( new THREE.Vector3( -200, 0, 0 ) );
     controls = new OrbitControls(camera, renderer.domElement);
@@ -37,17 +37,17 @@ function init() {
     /* pointlight = new THREE.PointLight(0xffffff,1);
     pointlight.position.set(200, 200, 200);
     scene.add(pointlight); */
-    const light1 = new THREE.DirectionalLight(0xffffff, 2);
+    const light1 = new THREE.DirectionalLight(0xffffff, 1);
     light1.position.set(200, 200, 200);
     scene.add(light1);
 
-    /* const light2 = new THREE.DirectionalLight(0xffffff, 2);
+    const light2 = new THREE.DirectionalLight(0xffffff, 1);
     light2.position.set(- 200, - 200, 200);
     scene.add(light2);
 
-    const light3 = new THREE.DirectionalLight(0xffffff, 2);
+    const light3 = new THREE.DirectionalLight(0xffffff, 1);
     light3.position.set(- 200, 200, -200);
-    scene.add(light3); */
+    scene.add(light3);
 
     /* let ballGeo = new THREE.SphereGeometry(50, 64, 64);
     let ballMat = new THREE.MeshPhysicalMaterial();

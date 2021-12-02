@@ -18,8 +18,6 @@ function calculatePointTube(linePoint) {
 }
 
 
-//-50, 50, -50
-//-50, 50, 50
 
 function init() {
     scene = new THREE.Scene();
@@ -29,7 +27,7 @@ function init() {
 
     document.body.appendChild(renderer.domElement);
 
-    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
+    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
 
     camera.position.set(0, 0, 500)/* .add( new THREE.Vector3( -200, 0, 0 ) ) */;
     controls = new OrbitControls(camera, renderer.domElement);
