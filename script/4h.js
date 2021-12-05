@@ -21,15 +21,15 @@ function calculatePointTube(linePoint) {
 
 function init() {
     scene = new THREE.Scene();
-
-    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    const canvas = document.querySelector('#c');
+    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, canvas });
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-    document.body.appendChild(renderer.domElement);
+    //document.body.appendChild(renderer.domElement);
 
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
 
-    camera.position.set(0, 0, 500)/* .add( new THREE.Vector3( -200, 0, 0 ) ) */;
+    camera.position.set(0, 200, 500)/* .add( new THREE.Vector3( -200, 0, 0 ) ) */;
     controls = new OrbitControls(camera, renderer.domElement);
 
     /* pointlight = new THREE.PointLight(0xffffff,1);
@@ -47,21 +47,7 @@ function init() {
     light3.position.set(- 200, 200, -200);
     scene.add(light3);
 
-    // this renderer is only used for the export
-
-    const rendererExport = new THREE.WebGLRenderer({ antialias: true });
-    rendererExport.setSize(window.innerWidth, window.innerHeight);
-
-    const exportLink = document.getElementById('exportLink');
-    exportLink.addEventListener('click', () => {
-
-        rendererExport.render(scene, camera); // only export mesh1
-        const dataURL = rendererExport.domElement.toDataURL('image/png');
-
-        exportLink.href = dataURL;
-        exportLink.download = "4h.png";
-
-    });
+    
 
     /* let ballGeo = new THREE.SphereGeometry(50, 64, 64);
     let ballMat = new THREE.MeshPhysicalMaterial();
@@ -99,19 +85,19 @@ function init() {
 
     /////////carbon///////////
     //////////upper - 1///////////
-    carbon(8, 0, 180, -25);
+    carbon(6, 0, 180, -25);
     //////////upper - 2///////////
-    carbon(8, -50, 125, -50);
-    carbon(8, 50, 125, -50);
-    carbon(8, -50, 125, 50);
-    carbon(8, 50, 125, 50);
+    carbon(6, -50, 125, -50);
+    carbon(6, 50, 125, -50);
+    carbon(6, -50, 125, 50);
+    carbon(6, 50, 125, 50);
     /////////upper - 4//////////
-    carbon(8, -50, 15, -50);
-    carbon(8, 50, 15, -50);
-    carbon(8, -50, 15, 50);
-    carbon(8, 50, 15, 50);
+    carbon(6, -50, 15, -50);
+    carbon(6, 50, 15, -50);
+    carbon(6, -50, 15, 50);
+    carbon(6, 50, 15, 50);
     /////////upper - 3//////////
-    carbon(8, 0, 70, 25);
+    carbon(6, 0, 70, 25);
 
     //frame();
     //far from view frame
@@ -214,18 +200,52 @@ function init() {
 
 
     animate();
+    // this renderer is only used for the export
+
+    const rendererExport = new THREE.WebGLRenderer({ antialias: true });
+    rendererExport.setSize(window.innerWidth, window.innerHeight);
+
+    const exportLink = document.getElementById('exportLink');
+    exportLink.addEventListener('click', () => {
+
+        rendererExport.render(scene, camera); // only export mesh1
+        const dataURL = rendererExport.domElement.toDataURL('image/png');
+
+        exportLink.href = dataURL;
+        exportLink.download = "4h.png";
+
+    });
 
 }
 function animate() {
     controls.update();
+    /* if (resizeRendererToDisplaySize(renderer)) {
+        const canvas = renderer.domElement;
+        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        camera.updateProjectionMatrix();
+    } */
+
     renderer.render(scene, camera);
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
 }
 
+function resizeRendererToDisplaySize(renderer) {
+    const canvas = renderer.domElement;
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    const needResize = canvas.width !== width || canvas.height !== height;
+    if (needResize) {
+        renderer.setSize(width, height, false);
+    }
+    return needResize;
+}
+
 function atom(d, x, y, z) {
     let ballGeo = new THREE.SphereGeometry(d, 64, 64);
-    let ballMat = new THREE.MeshPhysicalMaterial({ color: 0xc70200 });
+    let ballMat = new THREE.MeshPhongMaterial({ 
+        color: 0xc70200 
+    });
     let ballMesh = new THREE.Mesh(ballGeo, ballMat);
     scene.add(ballMesh);
 
@@ -236,7 +256,7 @@ function atom(d, x, y, z) {
 
 function carbon(d, x, y, z) {
     let ballGeo = new THREE.SphereGeometry(d, 64, 64);
-    let ballMat = new THREE.MeshPhysicalMaterial({ color: 0x1e1e1e });
+    let ballMat = new THREE.MeshPhongMaterial({ color: 0x1e1e1e });
     let ballMesh = new THREE.Mesh(ballGeo, ballMat);
     scene.add(ballMesh);
 
@@ -274,13 +294,13 @@ function line(points) {
     //const geometry = new THREE.BufferGeometry().setFromPoints(points);
 
     const line = new THREE.Line(geometry, material);
-    line.material.opacity = 0.75;
+    line.material.opacity = 0.25;
     line.material.transparent = true;
     scene.add(line);
 }
 
 function tube(points) {
-    const material = new THREE.LineBasicMaterial({
+    const material = new THREE.MeshPhongMaterial({
         color: 0xbebebe//,
         //linewidth: 100
     });
@@ -288,7 +308,7 @@ function tube(points) {
     let geometry = new THREE.TubeGeometry(
         new THREE.CatmullRomCurve3(points),
         512,// path segments
-        2,// THICKNESS
+        1,// THICKNESS
         100, //Roundness of Tube
         false //closed
     );
