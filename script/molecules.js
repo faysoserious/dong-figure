@@ -199,7 +199,7 @@ function animate() {
 
 function atom(d, x, y, z) {
     let ballGeo = new THREE.SphereGeometry(d, 64, 64);
-    let ballMat = new THREE.MeshPhysicalMaterial({ color: 0xc70200 });
+    let ballMat = new THREE.MeshPhongMaterial({ color: 0xc70200 });
     let ballMesh = new THREE.Mesh(ballGeo, ballMat);
     scene.add(ballMesh);
 
@@ -209,8 +209,8 @@ function atom(d, x, y, z) {
 }
 
 function carbon(d, x, y, z) {
-    let ballGeo = new THREE.SphereGeometry(d, 64, 64);
-    let ballMat = new THREE.MeshPhysicalMaterial({ color: 0x1e1e1e });
+    let ballGeo = new THREE.SphereGeometry(6, 64, 64);
+    let ballMat = new THREE.MeshPhongMaterial({ color: 0x1e1e1e });
     let ballMesh = new THREE.Mesh(ballGeo, ballMat);
     scene.add(ballMesh);
 
@@ -254,7 +254,7 @@ function line(points) {
 }
 
 function tube(points) {
-    const material = new THREE.LineBasicMaterial({
+    const material = new THREE.MeshPhongMaterial({
         color: 0xbebebe//,
         //linewidth: 100
     });
@@ -262,7 +262,7 @@ function tube(points) {
     let geometry = new THREE.TubeGeometry(
         new THREE.CatmullRomCurve3(points),
         512,// path segments
-        1.5,// THICKNESS
+        1,// THICKNESS
         100, //Roundness of Tube
         false //closed
     );
